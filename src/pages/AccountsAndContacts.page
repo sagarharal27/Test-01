@@ -1,0 +1,19 @@
+<apex:page StandardController="Account"  sidebar="false" >
+    <apex:form id="formid">
+        <apex:pageBlock title="Create a new Account ">
+            <apex:messages />
+            
+            <apex:pageBlockButtons >
+               
+                <apex:commandButton value="Save" action="{!save}" />
+                <apex:commandButton value="Cancel" action="{!cancel}" immediate="true" />
+               
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:inputField value="{!account.name}" required="false"/>
+                <br></br>
+                <apex:inputField value="{!account.Email_ID__c}" required="true"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

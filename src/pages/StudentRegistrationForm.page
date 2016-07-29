@@ -1,0 +1,39 @@
+<!-- Page : StudentRegistrationForm
+     Created Date : 8/8/2015
+     Description : This page displays student registration form -->
+
+
+<apex:page standardController="Student__c" extensions="StudentRegistrationExtension"
+    language="{!languageOption}" >
+    
+    <apex:form>         
+    <apex:pageBlock id="studentPage" >
+        <apex:selectList value="{!languageOption}" size="1" multiselect="false">
+                <br/><br/>
+            <apex:pageMessages id="message">
+            </apex:pageMessages> 
+            
+            <apex:selectOptions value="{!languageList}" />
+                <apex:actionsupport event="onchange" rerender="studentPage" />
+        </apex:selectList>
+                <br/><br/> 
+             
+        <apex:pageBlockSection title="Student Registration Form" columns="1" id="pgSection">
+            <apex:inputField value="{!Student__c.Student_Name__c}" />
+            <apex:inputField value="{!Student__c.Roll_Number__c}" />
+            <apex:inputField value="{!Student__c.Gender__c}" />
+            <apex:inputField value="{!Student__c.Course_Applying_For__c}" />
+            <apex:inputField value="{!Student__c.H_S_C__c}" />
+            <apex:inputField value="{!Student__c.S_S_C__c}" />
+            <apex:inputField value="{!Student__c.City__c}" />
+            <apex:inputField value="{!Student__c.State__c}" />
+            <apex:inputField value="{!Student__c.Country__c}" />
+        
+            <apex:commandButton value="Submit"  action="{!saveRecord}"  
+                                    rerender="studentPage,pgSection" >
+            </apex:commandButton>
+                
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    </apex:form>
+</apex:page>

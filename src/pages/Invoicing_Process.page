@@ -1,0 +1,179 @@
+<!--Page Name:- Invoicing Process
+     Created date 1/8/2015
+     Description:- This VF page is for displaying the Invoice for line Items -->
+
+<<<<<<< HEAD
+<apex:page StandardController="Invoice_statement__c" extensions="ExtensionForInvoice" standardStyleSheets="false"  renderAs="pdf"  
+           sidebar="false" showHeader="false" applyHTMLTag="false" applyBodyTag="false" action="{!commaOnlyWhenRequired}" >
+    
+        <!--CSS style for page -->
+    
+        <apex:stylesheet value="{!URLFOR($Resource.invoiceUpdated, 'InvoiceProcessUpdated.css')}"/> 
+        
+        <!-- Division of the page -->
+        
+        <h1><apex:outputText value="{!$Label.Heading_of_Page}" style="color:#6699FF; margin-left: 14cm;"/></h1>
+=======
+<apex:page StandardController="Invoice_statement__c" standardStyleSheets="false"  renderAs="pdf" 
+           sidebar="false" showHeader="false" applyHTMLTag="false" applyBodyTag="false">
+
+    
+    
+    <!--CSS style for page -->
+    
+        <apex:stylesheet value="{!URLFOR($Resource.InvoiceProcessFile, 'InvoiceProcessP2.css')}"/>
+    
+        <!-- Division of the page -->
+        <div class="Heading">
+            <apex:outputText value="{!$Label.Heading_of_Page}" />
+        </div>
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+        
+        <div>
+            <h2>{!$Label.Company_name}</h2>
+                {!Invoice_statement__c.Name}<br />
+<<<<<<< HEAD
+                {!Invoice_statement__c.Street_Address__c}<br/>
+                {!Invoice_statement__c.Phone__c} 
+                <!-- page block of Invoice Heading -->  
+                <apex:pageBlock >
+                    <table class="InvoiceTableHeading"> 
+=======
+                {!Invoice_statement__c.Street_Address__c}   
+            
+            <!-- page block of Invoice Heading --> 
+                <apex:pageBlock >
+                    <table class="InvoiceTableHeading">
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+                        <tr>
+                            <th>{!$Label.Heading_of_Page}#</th>
+                            <th>{!$Label.InvoiceDate}</th>
+                        </tr>
+                        <tr>
+                            <td>{!Invoice_statement__c.Name}</td>
+<<<<<<< HEAD
+                            <td><apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                    <apex:param value="{!Invoice_statement__c.CreatedDate}" />
+                                </apex:outputText></td>
+                       </tr>
+                    </table>
+                </apex:pageBlock>
+        </div> 
+        
+        <div>
+            <table> 
+                <tr>
+                    <th>{!$Label.InvoiceBill}</th> 
+                </tr>
+            </table>   
+
+                {!strCustomerName} <br/>
+             
+                <apex:outputText value="{!Invoice_statement__c.Customer_Name__c}" /><br/>  -->
+                <apex:outputText value="{!Invoice_statement__c.Company_name__c}" /><br/> 
+                {!Invoice_statement__c.Street_Address__c}<br/>
+                {!Invoice_statement__c.City__c}
+                {!Invoice_statement__c.State__c}<br/>
+                {!Invoice_statement__c.Zip_code__c}<br/>
+                {!Invoice_statement__c.Phone__c}<br/>
+                {!Invoice_statement__c.Email_Address__c}<br/>
+        </div>
+        
+        <br/><br/><br/>
+        
+        <apex:pageBlock>
+            <apex:pageBlockTable value="{!Invoice_statement__c}" var="Invoice" style="width:710px;">
+                <apex:column headerValue="{!$Label.InvoiceDescription}"  style="margin-right: 10cm; width:900px; " >
+                    <apex:repeat value="{!Invoice_statement__c.Line_Items__r}" var="Items" >
+                    <apex:outputText value="{!Items.Merchandise_Name__r.Name}"  style="display:block; margin-right: 10cm;"/> 
+                    </apex:repeat>
+                    <apex:outputText value="{!$Label.InvoiveServicefee}" style="display:block; margin-right: 10cm;"/>
+                </apex:column>
+               
+                <apex:column headerValue="{!$Label.InvoiceAmount}">
+                    <apex:repeat value="{!Invoice_statement__c.Line_Items__r}" var="Items">
+                       <apex:outputText value="{!Items.Total_cost__c}" style="display:block; margin-left: 6cm;"/>
+                    </apex:repeat>
+                    <apex:outputText value="{!Invoice_statement__c.Service_Fees__c}" style="margin-left: 6cm;" />
+                </apex:column>
+           
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        
+        <apex:pageBlock >
+            <apex:pageBlockTable style=" width:710px ; white-space:post;" value="{!Invoice_statement__c}" var="lineItem">
+                <apex:column width="300px" >
+                    <apex:outputText value="{!$Label.MessageNoLineItems}" rendered="{!IF(Invoice_statement__c.Count_of_Line_Item__c == 0, true, false)}"/>
+                     <apex:outputText value="{!$Label.InvoiceThankingCustomer}" rendered="{!IF(Invoice_statement__c.Count_of_Line_Item__c == 0,false,true)}" />
+                </apex:column>
+                
+                <apex:column width="400px" >
+                    <apex:outputText value="{!Invoice_statement__c.Grand__c}">{!$Label.InvoiceTotal}&nbsp;&nbsp;
+                    </apex:outputText>
+                </apex:column>
+                 
+            </apex:pageBlockTable>
+            <br/><br/><br/><br/> <br/><br/><br/><br/>
+            
+        </apex:pageBlock> 
+        
+        <apex:outputText value="{!$Label.InvoiceQueryConatct}" style="margin-left: 4cm;"/><br/>
+        <apex:outputText value="{!$User.FirstName} {!$User.LastName},{!$User.Email}" style="margin-left: 5cm;"/>
+       
+=======
+                            <td>{!Invoice_statement__c.CreatedDate}</td>
+                        </tr>
+                    </table>
+
+                </apex:pageBlock>
+        </div>
+        <div>
+            <table> 
+                <tr>
+                    <th>{!$Label.InvoiceBill}</th>
+                </tr>
+            </table>
+                {!Invoice_statement__c.Customer_Name__c},<br />
+                {!Invoice_statement__c.Company_name__c},<br />
+                {!Invoice_statement__c.Street_Address__c},<br />
+                {!Invoice_statement__c.City__c},
+                {!Invoice_statement__c.State__c},
+                {!Invoice_statement__c.Zip_code__c},<br />
+                {!Invoice_statement__c.Phone__c},<br />
+                {!Invoice_statement__c.Email_Address__c}<br />
+        </div>
+    
+        <br/><br/><br/>
+        <apex:pageBlock >
+            <div>
+                <table class="DescriptionAboutTable">
+                <colgroup>
+                    <col width="60%" /> 
+                    <col width="40%" />
+                    <col width="40%" />
+                </colgroup>
+                <tr><th colspan = "2">{!$Label.InvoiceDescription}</th>
+                <th>{!$Label.InvoiceAmount}</th></tr>
+          
+                <apex:repeat value="{!Invoice_statement__c.Line_Items__r}" var="Items">
+                    <tr class="noBorders">
+                        <td colspan="2" class="leftallign">{!Items.Merchandise_Name__r.Name}</td>
+                        <td>{!Items.Total_cost__c}</td>
+                    </tr>
+                </apex:repeat>
+                    <tr>
+                        <td><i>{!IF((Invoice_statement__c.Count_of_Line_Item__c == 0),"Sorry!!! There are no Line Items.Visit Again.","Thank You For Your Business!!! Visit Again")}</i></td>
+                        <td>{!$Label.InvoiceTotal}</td>
+                        <td>{!Invoice_statement__c.Grand_Total__c}</td>
+                    </tr> 
+                </table>
+        </div><br/><br/><br/><br/><br/> 
+    
+        <div class="queriesLine">
+            {!$Label.InvoiceQueryConatct}
+        </div>
+        </apex:pageBlock>
+    
+    
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+</apex:page>

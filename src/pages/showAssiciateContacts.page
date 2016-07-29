@@ -1,0 +1,147 @@
+<!-- Page : showAssiciateContact
+     Created Date : 22/7/2015
+     Description : This Visual Force page to show contact list of related account -->
+<<<<<<< HEAD
+ 
+<apex:page Controller="showAccountListController" sidebar="false" title="This is contact page" id= "Mainpage">
+
+    <apex:form id="pn1">
+        <!-- <apex:includeScript value="{!$Resource.Accounts}"/> --> 
+        <!--<apex:includeScript value="{!$Resource.ContactPageUsingJS}"/>  -->
+    <apex:pageMessages id="message">
+    </apex:pageMessages>
+
+    <apex:PageBlock title="My Related List for Account::{!accObj.Name}" id="pb">
+        <apex:repeat value="{!SearchAlpabet}" var="alp">
+            <apex:commandLink action="{!display}"  rerender="pn" > 
+                       {!alp}  
+            <apex:param value="{!alp}" name="alpha" assignTo="{!SearchVariable}" />
+            </apex:commandLink>
+            <apex:outputText value=" " /> 
+            </apex:repeat>
+=======
+
+<apex:page Controller="showAccountListController" sidebar="false">
+
+    <apex:form id="pn1">
+        <!-- <apex:includeScript value="{!$Resource.Accounts}"/> -->
+
+    <apex:PageBlock title="My Related List for Account::{!accObj.Name}" id="pb">
+
+        <apex:repeat value="{!SerchAlpabet}" var="alp">
+            <apex:commandLink action="{!display}"  rerender="pn" > 
+                       {!alp} 
+            <apex:param value="{!alp}" name="alpha" assignTo="{!SearchVariable}" />
+            </apex:commandLink>
+            <apex:outputText value=" " /> 
+        </apex:repeat>
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+
+    <apex:outputPanel id="pn">
+        <apex:pageBlockTable value="{!wrapList}" var="war" id="pageTable">
+            <apex:column > 
+                <apex:inputcheckBox value="{!war.selected}">
+                    <apex:actionSupport event="onclick" action="{!getSelected}" rerender="other_block"/>
+                </apex:inputcheckBox>
+            </apex:column> 
+            
+<<<<<<< HEAD
+            <apex:column >   
+=======
+            <apex:column > 
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+                <apex:outputfield value="{!war.contInstance.Name}" />
+            </apex:column> 
+            
+            <apex:column >
+                    <apex:commandlink value="Delete" onclick="deleteMethod('{!war.contInstance.Id}')" 
+                                      oncomplete="location.reload()" rerender="pb" /> 
+            </apex:column>
+<<<<<<< HEAD
+
+            <apex:facet name="footer">
+                <c:FooterComponent counter="{!counter}"/>
+            </apex:facet>
+        </apex:pageBlockTable>
+
+        <apex:commandButton value="Add Contact" action="{!AddContacts}" rerender="pb,pageblock2" />
+        <apex:commandButton value="Delete Multiple" action="{!DeleteMultipleRecords}"
+                                                    rerender="message,pn" />
+        <apex:commandButton value="Return" action="{!returnToAccount}" immediate="true" />
+        <apex:commandButton value="OK" action="{!DeleteMultipleRecords}"  rerender="message"/>
+    </apex:outputPanel>
+
+    </apex:PageBlock> 
+=======
+            
+             <apex:facet name="footer">
+                <c:FooterComponent counter="{!counter}"/>
+            </apex:facet>
+            
+        </apex:pageBlockTable>
+    
+   
+        <apex:commandButton value="Add Contact" action="{!AddContacts}" rerender="pageblock2" />
+        <apex:commandButton value="Delete Multiple" action="{!DeleteMultipleRecords}" rerender="pageTable" />
+        <apex:commandButton value="Return" action="{!returnToAccount}" immediate="true" />
+    </apex:outputPanel>
+    
+    </apex:PageBlock> 
+  
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+    <apex:pageBlock title="Add Contact" mode="edit" id="pageblock2">
+        <apex:pageBlockSection title="Add Contact" columns="2" rendered="{!rendAdd}">
+            <apex:inputField value="{!contactInstance.LastName}" />
+            <apex:inputField value="{!contactInstance.Email}" />
+            <apex:inputField value="{!contactInstance.Phone}" />
+            <apex:inputtext value="{!parentAccount}" Label="Account Name" />
+            <apex:commandButton action="{!saveNewRecord}" value="Save"
+                                reRender="pageTable,pageblock2" />
+        </apex:pageBlockSection>
+<<<<<<< HEAD
+    </apex:pageBlock>
+  
+=======
+       
+     
+        
+  </apex:pageBlock>
+  <!--<apex:includeScript value="{!$Resource.ContactPageUsingJS}"/>  -->
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+   <script type="text/javascript">
+       function deleteMethod(contactToDelete) {
+       alert('Deleting....'); 
+       alert(contactToDelete);
+       Visualforce.remoting.Manager.invokeAction(
+         '{!$RemoteAction.showAccountListController.deleteContact}', 
+           contactToDelete,
+                function(result,event){
+                        if (event.status) {
+                                alert('Successfully deleted');
+                             }
+                        else 
+                        if(event.type == 'exception'){ 
+<<<<<<< HEAD
+                                alert('Deleted....');
+=======
+                                alert('Can not delete this Record.');
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+                                }
+                        else
+                            {
+                            alert('Unknown Exception')
+                            } 
+<<<<<<< HEAD
+           });
+        }
+    </script>  
+    </apex:form>
+=======
+           } 
+           );
+           }
+    </script>  
+ </apex:form>
+
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+</apex:page>

@@ -1,0 +1,85 @@
+<!-- Page : showaccountList
+     Created Date : 22/7/2015
+     Description : This Visual Page shows the Account list --> 
+
+<<<<<<< HEAD
+<apex:page Controller="showAccountListController" sidebar="false" title="Welcome to account page" id="mainPage">
+=======
+<apex:page Controller="showAccountListController" sidebar="false">
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+    <apex:form >
+    
+        <img src="{!$Resource.AccountsandContactIMG}" width="250" height="100" />
+        <apex:pageBlock title="Account Details" id="pageBlockID">
+            <apex:inputText Label="Search" id="searchinput" onkeypress="return enter_keypress(event)"
+                            value="{!accountName}" />
+
+            <apex:actionFunction name="SearchAccount" action="{!SearchAccount}"  />
+           
+            
+            <apex:commandButton Value="Search" action="{!SearchAccount}"
+                                id="cmdbuton" rerender="pageBlockID,message" />
+<<<<<<< HEAD
+             &nbsp;
+             &nbsp;
+             &nbsp;                  
+            <apex:commandlink id="clear" Value="Clean" action="{!refreshTheSearch}"
+=======
+                                
+            <apex:commandlink id="clear" Value="Clean" action="{!refresh}"
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+                              rerender="pageBlockID,searchinput" /> 
+                              
+            
+            <apex:pageMessages id="message">
+            </apex:pageMessages>
+            
+            <br/>
+        
+            <apex:pageBlockTable value="{!listacc}" id="pageBlockID" var="item">
+                <apex:column headerValue="Account Name">
+                    <apex:outputLink value="/{!item.id}"> {!item.name}
+                    </apex:outputLink>
+                </apex:column>
+                
+                <apex:column value="{!item.Email_ID__c}" />
+                <apex:column value="{!item.Phone}" />
+                <apex:column value="{!item.Website}" />
+                
+                <apex:column headerValue="Manage Contacts">
+<<<<<<< HEAD
+                    <apex:commandButton Value="Manage Contacts" action="{!RedirectTocontactPage}"
+=======
+                    <apex:commandButton Value="Manage Contacts" action="{!Redirect}"
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1
+                                        rerender="pageBlockID">
+                        <apex:param name="Accountid" value="{!item.id}"
+                                    assignTo="{!accId}" />
+                        <apex:param name="AccountName" value="{!item.name}"
+                                    assignTo="{!accountName}" />
+                    </apex:commandButton>
+                </apex:column>
+                
+            </apex:pageBlockTable>  
+            
+             <apex:facet name="footer">
+                <c:FooterComponent counter="{!counter}"/>
+             </apex:facet>
+            
+        </apex:pageBlock>
+       
+       
+        
+    </apex:form>
+    <script type='text/javascript'>
+        function enter_keypress(eventInstance) {
+            if (window.event && window.event.keyCode == 13 || eventInstance.which == 13) {
+                SearchResultAccount();
+                return false;
+            } 
+            else {
+                return true;
+            }
+        }
+    </script>
+</apex:page>

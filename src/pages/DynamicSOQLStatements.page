@@ -1,0 +1,86 @@
+<apex:page controller = "DynamicSOQLStatements">
+<apex:form >
+<apex:pageMessages id="message">
+    </apex:pageMessages>
+  
+<!-- To display the list of objects -->
+<apex:pageblock id="block1">
+    <apex:pageblockSection id="sec1" title="Select Object">
+        <b></b>
+        <apex:selectList label="OBJECTS" value="{!selectObject}" size="1" multiselect="false">
+            <apex:selectOptions value="{!objectList}"/>
+            <apex:actionSupport event="onchange" action="{!getfieldList}" reRender="block2" />
+        </apex:selectList>
+   </apex:pageblockSection>
+</apex:pageblock>
+ 
+<!-- To display the list of fields -->
+<apex:pageblock id="block2">
+    <apex:pageBlockSection title="Select Fields :">
+        <apex:panelGrid columns="4" id="theGrid" >
+            <apex:outputLabel style="margin-right: 12cm;"/>
+            <apex:selectList value="{!selectField}" multiselect="true" size="10">
+                <apex:selectoptions value="{!fieldList}" />
+            </apex:selectList>
+            <!--To display a button which will add the fields selected to the selected fields list -->
+            <apex:panelGroup >
+                <apex:commandButton value=">>" action="{!showSelectedFieldList}" reRender="block2" />
+                <apex:commandButton value="<<" action="{!undoSelectedFields}" reRender="block2" /> 
+                <br/>
+            </apex:panelGroup>
+            <apex:selectList label="Selected Fields" id="sFields" value="{!selectedField}" size="5" multiselect="true">
+                <apex:selectOptions value="{!selectedFieldList}" />
+            </apex:selectList>
+        </apex:panelGrid>
+    </apex:pageBlockSection>
+</apex:pageblock>
+
+<!-- To display a pick list for selecting the number of records to fetch the records -->
+<apex:pageBlock id="block3">
+    <apex:pageBlocksection columns="2">
+        <b><apex:outputText value="Select No. of Records : " /></b>
+        <apex:selectList value="{!selectRecord}">
+            <apex:selectOption itemValue="500" itemLabel="500" />
+            <apex:selectOption itemValue="1000" itemLabel="1000"/>
+            <apex:selectOption itemValue="5000" itemLabel="5000"/>
+            <apex:selectOption itemValue="50000" itemLabel="50000"/>
+        </apex:selectList>
+        <!-- This a radio button for ordering the records either ascending or descending -->
+        <apex:actionRegion >
+            <apex:panelGroup >
+                <apex:selectRadio title="Sort As" value="{!orderOfOptions}">
+                    <apex:outputText value="Sort As" />
+                    <apex:selectOption itemvalue=" ASC" itemLabel="Ascending" />
+                    <apex:selectOption itemvalue=" DESC" itemLabel="Descending" />
+                </apex:selectRadio>
+            </apex:panelGroup>
+        </apex:actionRegion>
+    </apex:pageBlockSection>
+    <!--     </apex:pageBlockSection> -->
+</apex:pageBlock>
+
+<!-- To display the query fired based on the fields selected -->
+<apex:pageBlock id="block4">
+    <apex:pageBlockSection >
+        <apex:commandButton value="Show Query" action="{!showQuery}" reRender="block4,block5" />
+        <!--      <apex:outputLabel value="{!queryList}"/> -->
+    </apex:pageBlocksection>
+</apex:pageBlock>
+
+<!-- To generate the query fired -->
+<apex:pageBlock id="block5">
+    <apex:pageBlockSection id="sec5" rendered="{!blrenderSection}">
+        <b><apex:outputlabel value="Generated SOQL Query :" /></b>
+        <br />
+        <apex:outputtext value="{!queryList}"  />
+        <br />
+        <apex:commandButton value="Execute Query" action="{!executeQuery}" reRender="pageTable,sec5,message" />
+        <apex:pageBlockTable value="{!dynamicRecordsList}" var="dynamic" id="pageTable" >
+            <apex:repeat value="{!selectedFieldSet}" var="fields">
+                <apex:column value="{!dynamic[fields]}" />
+            </apex:repeat>
+        </apex:pageBlockTable>
+    </apex:pageBlockSection>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

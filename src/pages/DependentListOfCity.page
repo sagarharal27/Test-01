@@ -1,0 +1,54 @@
+<!-- Page : DependentListOfCity
+     Created Date : 9/8/2015
+<<<<<<< HEAD
+     Description this page displays Country and city in pick list  -->
+       
+<apex:page controller="DependentListController"> 
+<apex:pageBlock >
+    <apex:form >
+    
+    <apex:actionFunction name="rerenderCity" rerender="ListCity" >
+        <apex:param name="Param" assignTo="{!country}" value="" />
+    </apex:actionFunction>
+
+    <apex:pageblocksection columns="6">
+        Country
+        <apex:selectList id="ListCountry" value="{!country}" size="1" onchange="rerenderCity(this.value)">
+            <apex:selectOptions value="{!countrylist}">
+            </apex:selectOptions>
+        </apex:selectList>
+    </apex:pageblocksection>
+
+    <apex:pageblocksection columns="6">
+        City
+        <apex:selectList id="ListCity" value="{!City}" size="1">
+            <apex:selectOptions value="{!CityList}">
+            </apex:selectOptions>
+        </apex:selectList>
+    </apex:pageblocksection>
+
+    </apex:form>
+</apex:pageBlock>
+</apex:page>
+=======
+     Description this page displays Country and city in picklist  -->
+     
+     
+<apex:page controller="DependentListController"> 
+    <apex:form id="formID">
+          
+        SELECT COUNTRY<br/>
+        <apex:selectList value = "{!strCounty}" size="1" multiselect="false">  
+            <apex:selectOptions value="{!listOfCountry}" />
+            <apex:actionSupport event="onchange" action="{!relatedCity}" rerender="formID"/>
+        </apex:selectList>
+        <br/><br/><br/><br/>
+        
+        SELECT CITY<br/>
+        <apex:selectList value="{!strRelatedCity}" size="1" multiselect="false">
+            <apex:selectOptions value="{!listOfCity}" />
+        </apex:selectList>
+    
+    </apex:form>
+</apex:page> 
+>>>>>>> 35da6db775fa3db33f698ebd618b5131d9cc0bb1

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>This is reminder to manager about end date</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Reminder of End date</name>
+    <style>none</style>
+    <subject>Welcome to Payroll System</subject>
+    <textOnly>WELCOME &lt;br&gt;&lt;br&gt;&lt;br&gt;
+ The project {!Project_Details__c.Name} is having the end date after 5 days. 
+
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+ Thank you!!!!!</textOnly>
+    <type>custom</type>
+</EmailTemplate>
