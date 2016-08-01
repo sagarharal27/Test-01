@@ -1,0 +1,256 @@
+<apex:page showHeader="false" standardStylesheets="false" sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS0101,'assets/styles/salesforce-lightning-design-system-vf.css')}" />.
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <style>
+        .slds .slds-page-header{
+            border-bottom: 0px !important;
+        }
+         body{   
+         margin:-18px;
+         }
+        .slds .slds-page-header__detail-row {
+            margin:0px !important;
+        }
+        .tabColor{
+            color:white;
+            font-size: 16px;
+            text-decoration:none;
+        }
+        .slds .slds-notify {
+            background:none !important;
+        }
+        .bodyBackground{
+            background-color:rgba(0,0,0,0.7);
+        }
+        .slds-page-header.HeaderBackground{
+            background: #86a5cd;
+        }
+        button.slds-button.slds-button--brand.buttonSignUp{
+            background: #78bf3a;
+            border-color: #78bf3a;
+        }
+        .slds-page-header.MenuBackground{
+            background: #19263a ;
+        }
+        button.slds-button--inverse.cancelButton{
+            margin-top: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+       button.slds-button.slds-button--icon.crossimage {
+           line-height: 48px;
+        }
+        use.slds-input__icon {
+           fill: #54698d;
+        }
+        .searchIcon {
+                width: 39px !important;
+                height: 16px !important;
+                border-right: solid 1px #ddd !important;
+        }
+        .slds .slds-input-has-icon .slds-input__icon {
+            fill: #A0A0A0;
+        }
+    </style>
+    <body>
+    <!----------------top Navbar------------------->
+    <div class="slds">
+        <div class="desktopView">
+            <div class="slds-page-header HeaderBackground">
+                <div class="slds-grid slds-page-header__detail-row slds-wrap">
+                
+                    <div class="slds-col slds-col--padded slds-size--1-of-1 slds-medium-size--3-of-5 slds-large-size--4-of-7">
+                        <img src="/servlet/servlet.ImageServer?id=015o0000001blpI&oid=00Do0000000b5Eu&lastMod=1457120770000" />
+                    </div>
+                    
+                    <div class="slds-col slds-col--padded slds-size--1-of-1 slds-medium-size--1-of-5 slds-large-size--2-of-7" >
+                        <div class="slds-lookup" data-select="single" data-scope="single" data-typeahead="true">
+                            <div class="slds-form-element">
+                                <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                                    <input type="text" id="lookup" class="slds-input" placeholder="Search" />
+                                    <svg class="slds-input__icon">
+                                        <use class="slds-input__icon" xlink:href="/resource/SLDS0101/assets/icons/utility-sprite/svg/symbols.svg#search" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="slds-button slds-button--brand buttonLogin">Login</button>
+                    <button class="slds-button slds-button--brand buttonSignUp">SignUp</button>
+                </div><div style="clear:both"></div>
+              </div>
+            <div class="slds-page-header MenuBackground">
+                 <div class="slds-grid slds-wrap">
+                     <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                     <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                     <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                     <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                     <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12">
+                        <ul>
+                            <li class="slds-list__item">
+                                <span class="tabColor">Home</span> 
+                            </li>
+                        </ul>
+                     </div>
+                     <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12">
+                        <ul>
+                            <li class="slds-list__item">
+                                  <span class="tabColor">Trial</span>
+                            </li>
+                        </ul>
+                     </div>
+                      <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12">
+                         <ul>
+                             <li class="slds-list__item">
+                                  <span class="tabColor">Module</span>
+                             </li>
+                         </ul>
+                      </div>
+                      <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12">
+                         <ul>
+                             <li class="slds-list__item">
+                                  <span class="tabColor">Projects</span>
+                             </li>
+                         </ul>
+                      </div>
+                      <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                      <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                      <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                      <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                      <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                      <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                      <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                      <div class="slds-col slds-no-flex slds-align-bottom slds-col--padded slds-size--1-of-12 slds-medium-size--1-of-12 slds-large-size--1-of-12"></div>
+                   </div>
+              </div>
+        </div>
+                   <!-- ---------------------------------------------------------------For Mobile------------------------------------------------->
+        <div class="mobileHeader">
+            <div class="slds-page-header HeaderBackground"> 
+              <div class="hidePanel">
+                   <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-col--padded slds-size--1-of-3 slds-medium-size--1-of-3 slds-large-size--1-of-3">
+                           <div class="showMenuNavigation">
+                             <div class="slds-dropdown-trigger slds-dropdown-trigger--click slds-is-open" aria-expanded="true">
+                                <button class="slds-button slds-button__icon--large" onclick="callTabsMethod();">
+                                     <svg class="slds-icon">
+                                         <use class="slds-icon" xlink:href="/resource/SLDS0101/assets/icons/utility-sprite/svg/symbols.svg#rows" />
+                                      </svg>
+                                </button>
+                                 <div class="slds-dropdown slds-dropdown--left slds-dropdown--actions">
+                                  <ul class="dropdown__list" role="menu">
+                                    <li class="slds-dropdown__item">
+                                      <a href="#void" role="menuitem">
+                                        <p class="slds-truncate">Home</p>
+                                      </a>
+                                    </li>
+                                    <li class="slds-dropdown__item">
+                                      <a href="#void" role="menuitem">
+                                        <p class="slds-truncate">Trial</p>
+                                      </a>
+                                    </li>
+                                     <li class="slds-dropdown__item">
+                                      <a href="#void" role="menuitem">
+                                        <p class="slds-truncate">Module</p>
+                                      </a>
+                                    </li>
+                                     <li class="slds-dropdown__item">
+                                      <a href="#void" role="menuitem">
+                                        <p class="slds-truncate">Projects</p>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
+                             </div>
+                          </div>
+                        </div>
+                        <div class="slds-col slds-col--padded slds-size--1-of-3 slds-medium-size--1-of-3 slds-large-size--1-of-3">
+                             <img src="/servlet/servlet.ImageServer?id=015o0000001blpI&oid=00Do0000000b5Eu&lastMod=1457120770000" />
+                        </div>
+                          <div class="slds-col slds-col--padded slds-size--1-of-3 slds-medium-size--1-of-3 slds-large-size--1-of-3">
+                             <div class="slds-lookup" data-select="single" data-scope="single" data-typeahead="true">
+                                 <div class="slds-form-element">
+                                     <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                                        <button class="slds-button slds-button__icon--large" onclick="callSearchMethod();" style="float: right;">
+                                          <svg aria-hidden="true" class="slds-button__icon slds-button__icon--large" style="color: white;">
+                                               <use class="slds-button__icon" xlink:href="/resource/SLDS0101/assets/icons/utility-sprite/svg/symbols.svg#search" />
+                                           </svg>
+                                        </button>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+            
+            <div class="showPopup">
+                <center><div class="slds-page-header" style="background: #06354d;">
+                 <div class="slds-grid slds-page-header__detail-row slds-wrap">
+                <div class="slds-col slds-col--padded slds-size--2-of-3 slds-medium-size--2-of-3 slds-large-size--1-of-5" >
+                        <div class="slds-form-element slds-p-left--large">
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon--right">
+                            <input type="text" id="lookup" class="slds-input" placeholder="Search" />
+                            <svg class="slds-input__icon slds-m-right--large searchIcon">
+                                <use class="slds-input__icon" xlink:href="/resource/SLDS0101/assets/icons/utility-sprite/svg/symbols.svg#search" />
+                            </svg>
+                            <svg class="slds-input__icon" onclick="callCancelMethod();">
+                                <use class="slds-input__icon" xlink:href="/resource/SLDS0101/assets/icons/utility-sprite/svg/symbols.svg#close" />
+                            </svg>
+                            
+                        </div>
+                     </div>
+                </div>  
+                    </div> 
+            </div> 
+            </center>
+        </div>   
+                 <!-- ----------------------------------------------------------------------------------------------------------------------- -->
+         </div>
+       </body>
+    </html>
+    <script>
+       $( document ).ready(function() {
+            $('.desktopView').show();
+            $('.mobileHeader').hide();
+             $('.showPopup').hide();
+      });
+      $(window).resize(function(){
+            mobileSidebarFix();
+      });
+      function mobileSidebarFix() {
+         if( $('body').width() <= 979 ) {
+               $('.desktopView').hide();
+               $('.mobileHeader').show();
+               $('.hidePanel').show();
+               $('.showPopup').hide();
+               $('body').removeClass( "bodyBackground" );
+          }
+          else {
+                $('body').removeClass( "bodyBackground" );
+                $('.desktopView').show();
+                $('.mobileHeader').hide();
+                $('.showPopup').hide();
+             }
+      }
+      function callTabsMethod() {
+        $('.showMenuNavigation').show();
+      }
+      function callSearchMethod() {
+         console.log('HIee..');
+         $('.showPopup').show();
+         $('.mobileHeader').hide();
+         $('.hidePanel').hide();
+         $('body').addClass( "bodyBackground" );
+      }
+      function callCancelMethod() {
+          $('body').removeClass( "bodyBackground" );
+          $('.showPopup').hide();
+          $('.hidePanel').show();
+          $('.mobileHeader').show()
+      }
+    </script>
+</apex:page>

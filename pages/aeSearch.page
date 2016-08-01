@@ -1,0 +1,169 @@
+<!-- ----------------------------------------------------------------------- 
+   ACF Solutions 
+   Created By: Vikas Gadilkar 
+   Created Date: Feb 2015 
+   Description: This Page is used to search User, Contact data 
+ ----------------------------------------------------------------------- -->
+
+<apex:page controller="aeSearchController" showHeader="false" standardStylesheets="false" 
+    sidebar="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+
+     <apex:stylesheet value="{!URLFOR($Resource.SLDS0101, 'assets/styles/salesforce-lightning-design-system-vf.css')}" /> 
+
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">    
+
+        <head>
+            <title>People Search Page</title>
+            <apex:includeScript value="{!UrlFor($Resource.jQuery181,'/jquery/jquery-1.8.js')}"/>
+            <apex:includeScript value="{!UrlFor($Resource.jQuery181,'/jquery/jquery-ui.js')}"/>
+            <script src="https://code.jquery.com/color/jquery.color-2.1.2.min.js" />
+
+            <script type="text/javascript">
+                function populateSearchBox() {
+                    j$('#searchBox').val("{!searchString}");
+                }
+
+                function handle(e) {
+                    if(e.keyCode === 13) {
+                        flag = 1;
+                        e.preventDefault();
+                        //setTimeout(function() {
+                            searchRecords(); 
+                        //}, delay);
+                        return false;
+                    } else {
+                        flag = 0;
+                    }
+                }
+
+                function searchRecords() {
+                    if(document.getElementById('searchBox')){
+                        var recordName = '';
+                        recordName = document.getElementById('searchBox').value;
+                        objName = j$('#objectName').val();
+                        j$(".ui-menu").hide();
+                        callControllerMethod(recordName, objName);
+                        j$('#objectName').val('');
+                    }
+                }
+
+            </script>
+
+        </head>
+
+        <body onload = "populateSearchBox();"> 
+            <div class="slds">
+                <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                    <div class="slds-col--padded slds-large-size--3-of-6">
+                        <c:TypeaheadSearchComponent autocomplete_textbox="searchBox" objectNameTargetId="objectName"
+                            destinationForSelectedValue="recordName" destinationForSelectedId="recordId" />
+                            <input type="hidden" name="recordName" id="recordName" />
+                            <input type="hidden" name="objName" id="objectName" />
+                    </div>
+                    <div class="slds-col--padded slds-large-size--3-of-6">
+                        <apex:form >
+                            <apex:commandButton value="Search in User, Contact" onclick="searchRecords();return false;" status="actStatusId"
+                                reRender="results,error" styleClass="slds-button slds-button--brand apexTags"/>
+                            <apex:actionFunction name="callControllerMethod" action="{!soslDemo_method}"
+                                status="actStatusId" rerender="results,error">
+                                <apex:param name="searchBox1" value="" assignTo="{!searchText}"/>
+                                <apex:param name="obj" value="" assignTo="{!sObjectName}"/>
+                            </apex:actionFunction>
+                        </apex:form>
+                    </div>
+                </div>
+                <br />
+                <center>
+                    <div class="slds-spinner_container">
+                        <apex:actionStatus id="actStatusId" layout="block">
+                            <apex:facet name="start">
+                                <div id="assign-action-spinner-main">
+                                    <div id="assign-action-spinner-content">
+                                        <div class="slds-spinner--large">
+                                            <img src="{!URLFOR($Resource.SLDS0101, '/assets/images/spinners/slds_spinner.gif')}"
+                                                alt="Loading..." />
+                                        </div>
+                                    </div>
+                                </div>
+                            </apex:facet>
+                        </apex:actionStatus>
+                    </div>
+                </center>
+
+                <apex:outputPanel id="error" title="Error Panel" >
+                    <apex:pageMessages > </apex:pageMessages>
+                </apex:outputPanel>
+                <br />
+
+                <apex:outputPanel title="" id="results" layout="block">
+                    <div class="slds-text-heading--medium" id="ResultsHeader">Results</div>
+                     <div class="slds-grid slds-wrap slds-grid--pull-padded">
+                      <div class="slds-col--padded slds-size--1-of-1 slds-medium-size--3-of-6 slds-large-size--6-of-6">
+                    <apex:outputPanel id="userPanelId" rendered="{!userList != null}" layout="block">
+                        <div class="slds-text-heading--label" id="UserHeader">User</div>
+                        <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal">
+                            <tr class="slds-text-heading--label">
+                                <th scope="col"><span class="slds-truncate">Name</span></th>
+                                <th scope="col"><span class="slds-truncate">ID</span></th>
+                            </tr>
+                            <apex:repeat value="{!userList}" var="user">
+                                <tr class="slds-hint-parent">
+                                    <td data-label="name">
+                                        <span class="slds-truncate">{!user.name}</span>
+                                    </td>
+                                    <td data-label="Id">
+                                        <a href="#"><span class="slds-truncate">{!user.Id}</span></a>
+                                    </td>
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="ContactPanelId" rendered="{!contactList != null}" layout="block">
+                        <div class="slds-text-heading--label" id="ContactsHeader">Contacts</div>
+                        <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal">
+                            <tr class="slds-text-heading--label">
+                                <th scope="col"><span class="slds-truncate">Name</span></th>
+                                <th scope="col"><span class="slds-truncate">Email</span></th>
+                            </tr>
+                            <apex:repeat value="{!contactList}" var="con">
+                                <tr class="slds-hint-parent">
+                                    <td data-label="name"><span class="slds-truncate">{!con.name}</span>
+                                    </td>
+                                    <td data-label="email">
+                                        <a href="#"><span class="slds-truncate">{!con.email}</span></a>
+                                    </td>
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                    </apex:outputPanel>
+
+                    <apex:outputPanel id="conHPanelId" rendered="{!contactHelperList != null}" layout="block">
+                        <div class="slds-text-heading--label" id="ContactsHelperHeader">Contacts Helper</div>
+                        <table class="slds-table slds-table--bordered slds-max-medium-table--stacked-horizontal">
+                                <tr class="slds-text-heading--label">
+                                    <th scope="col">
+                                        <span class="slds-truncate">Name</span>
+                                    </th>
+                                    <th scope="col">
+                                        <span class="slds-truncate">Email</span>
+                                    </th>
+                                </tr>
+                            <apex:repeat value="{!contactHelperList}" var="conH">
+                                <tr class="slds-hint-parent">
+                                    <td data-label="name">
+                                        <span class="slds-truncate">{!conH.name}</span>
+                                    </td>
+                                    <td data-label="email">
+                                        <a href="#"><span class="slds-truncate">{!conH.email}</span></a>
+                                    </td>
+                                </tr>
+                            </apex:repeat>
+                        </table>
+                    </apex:outputPanel>
+                    </div>
+                    </div>
+                </apex:outputPanel>
+            </div>
+        </body>
+    </html>
+</apex:page>

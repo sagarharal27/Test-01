@@ -1,0 +1,18 @@
+<apex:page controller="BatchLeadsController" sidebar="true">
+    <div align="center">
+        <apex:form id="form">
+            <apex:pageBlock title=" Delete the Duplicate leads " >
+                <apex:outputLabel value="Select a field to delete a lead :" />
+                    <center>
+                    <apex:selectList value="{!selectedField}" size="1" multiselect="false" >
+                        <apex:selectOptions value="{!ConfigurableFields}" />
+                    </apex:selectList>
+                    <br /> 
+                    <br />
+                    <apex:commandButton value="Go" action="{!updateField}"  />
+                    </center>
+               
+            </apex:pageBlock>
+        </apex:form>
+    </div>
+</apex:page>

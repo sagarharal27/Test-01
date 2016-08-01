@@ -1,0 +1,105 @@
+<apex:page Controller="AccountListViewController" >
+    <apex:form id="form1" >
+        <apex:includeScript value="{!URLFOR($Resource.VFRemoting, 'deletefolder/delete.js')}" /> 
+        <apex:pageBlock title=" Contacts of  ' {!accountName} ' " id="blockpage" >
+            <br /> 
+            <br /> 
+            
+<!--  A to Z List  -->
+            <apex:repeat value="{!ListAToZ}" var="traverser" > 
+                <apex:commandLink value="{!traverser}" action="{!searchAlphabets}"
+                    rerender="contactTable, totalcount, blockpage" > 
+                    <apex:param name="contactList" value="{!traverser}" 
+                        assignTo="{!alphabetName}" />
+                        |&nbsp;
+                </apex:commandLink> 
+            </apex:repeat> 
+            <br /> 
+            <br /> 
+            <apex:pageBlockSection columns="1" >
+            
+<!--  Display the contacts list  -->
+                <apex:pageBlockTable value="{!ListWrapperMethod}" id="contactTable" var="con" > 
+                    <apex:column value="{!con.contactInstance.Name}" /> 
+                    <apex:column value="{!con.contactInstance.Id}" /> 
+                    <apex:column > 
+                        
+                        <apex:facet name="header" >
+                            <apex:inputCheckBox id="allBox" 
+                                onclick="return selectAllCheckboxes(this,'inputId');"  >
+                                <apex:actionsupport event="onchange" action="{!buttonDisplay}" 
+                                rerender="deleteButton" /> 
+                                </apex:inputCheckBox>
+                        </apex:facet>
+                        
+                        <apex:inputCheckbox id="inputId" value="{!con.deleteBox}"  > 
+                            <apex:actionsupport event="onchange" action="{!buttonDisplay}" 
+                                rerender="deleteButton" /> 
+                        </apex:inputCheckbox>
+                    </apex:column>
+                    <apex:column > 
+                        <apex:commandlink value="Delete" status="status" reRender="contactTable" 
+                            onclick="deleteContact('{!con.contactInstance.Id}');"
+                            oncomplete="location.reload();"> 
+                        </apex:commandlink>
+                    </apex:column> 
+                </apex:pageBlockTable> 
+            </apex:pageBlockSection>
+            <center>
+
+<!-- LOADING SYMBOL -->
+                <apex:actionStatus id="status" >
+                    <apex:facet name="start" >
+                        <img src="/img/loading.gif" />   
+                    </apex:facet>
+                </apex:actionStatus>  
+            </center> 
+            <br />
+            <center>
+
+<!--  Delete Button  --> 
+                <apex:commandButton id="deleteButton" value="Delete Multiple Contacts" 
+                    action="{!deleteRecords}" disabled="{!seen}" > 
+                    <apex:actionsupport event="onclick" status="status" 
+                        reRender="contactTable" />
+                </apex:commandButton>
+                
+<!--  Return to account List page  -->
+                <apex:commandButton value="Return" action="{!returnToAccount}" 
+                    immediate="true" /> 
+            </center>
+            <apex:facet name="footer" > 
+                <c:Count_Component id="cnt" contactsCount="{!counter}" /> 
+            </apex:facet>
+            <br />
+        </apex:pageBlock> 
+    </apex:form> 
+    <apex:form > 
+
+<!-- Add new Contact -->
+        <apex:pageBlock title="Add Contact" mode="edit" id="pageblock2"> 
+            <apex:pageBlockSection title="Add Contact" columns="2"> 
+                <apex:inputField value="{!contactInstance.LastName}" /> 
+                <apex:inputField value="{!contactInstance.Email}" /> 
+                <center>
+                    <apex:commandButton value="Save" action="{!newContact}" 
+                        reRender="blockpage, pageblock2, contactTable" /> 
+                </center>    
+            </apex:pageBlockSection>
+            <br />
+        </apex:pageBlock> 
+<!--         <apex:actionFunction name="check" action="{!buttonDisplay}" rerender="deleteButton" /> -->
+    </apex:form>
+    <script type = "text/javascript" > 
+        function selectAllCheckboxes(obj, receivedInputID) {
+            var inputCheckBox = document.getElementsByTagName("input"); 
+            for(var i = 0; i < inputCheckBox.length; i++) { 
+                if(inputCheckBox[i].id.indexOf(receivedInputID) != -1) {  
+                    inputCheckBox[i].checked = obj.checked;
+                }
+            }
+            check();
+        }
+        
+    </script> 
+</apex:page>

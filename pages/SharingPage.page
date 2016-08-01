@@ -1,0 +1,14 @@
+<apex:page Controller="SharingController">
+        <apex:pageBlock > 
+            <apex:pageBlockTable value="{!empList}" var="e" >
+                <apex:column >
+                    <apex:facet name="header">Id</apex:facet>
+                    
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Name</apex:facet>
+                    <apex:outputText value="{!e.First_Name__c }"/>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,53 @@
+<apex:page Controller="AccountListViewController" readOnly="true">
+    <apex:form >
+    
+<!-- Image for the page -->
+        <img src = "{!$Resource.AccountImage}" width = "250" height = "100" />
+        <apex:pageBlock title="Account Details">
+
+<!-- The search text box  to search the account -->
+            <apex:inputText Label="Search" id="searchInput" 
+                onkeypress="return enter_keypress(event)" value="{!searchStringAccount}" />
+            
+            <apex:actionFunction name="searchResultAccount" action="{!SearchResultAccount}" />
+            
+            <apex:commandButton value="Search" action="{!SearchResultAccount}"
+                id="cmdbuton" rerender="accountlistpageblocktable, message, cnt" />
+            
+            <apex:commandlink id="clear" value="Clear" action="{!clearSearchResult}" 
+                rerender="accountlistpageblocktable,searchInput" />
+                <apex:pageMessages id="message" >
+            </apex:pageMessages> 
+            <br />
+            <apex:pageBlockTable value="{!account}" id="accountlistpageblocktable" var="item">
+                <apex:column headerValue="Account Name">
+                    <apex:outputLink value="/{!item.id}"> {!item.name}
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column value="{!item.Email_Address__c}" />
+                <apex:column value="{!item.Phone}" /> 
+                <apex:column value="{!item.Website}" />
+                <apex:column headerValue="Manage Contacts">
+                    <apex:commandButton value="Manage Contacts" action="{!redirectToContacts}" 
+                            rerender="All">
+                        <apex:param name="Accountid" value="{!item.id}" 
+                            assignTo="{!idAccount}" />
+                        <apex:param name="AccountName" value="{!item.name}" 
+                            assignTo="{!accountName}" />
+                    </apex:commandButton>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        <c:Count_Component id="cnt" contactsCount="{!counter}" />
+    </apex:form>
+    <script type = 'text/javascript'>
+        function enter_keypress (eventInstance) {
+            if (window.event && window.event.keyCode == 13 || eventInstance.which == 13) {
+                searchResultAccount();
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+</apex:page>

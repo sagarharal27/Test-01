@@ -1,0 +1,6 @@
+<apex:page Controller="ViewController" >
+    <apex:form >
+            <c:MultiSelectComponent id="multiPickList" > 
+            </c:MultiSelectComponent>
+    </apex:form>
+</apex:page>

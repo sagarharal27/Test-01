@@ -1,0 +1,50 @@
+<apex:page Controller="AccountsPaginationController" >
+
+
+    <apex:form >
+        <apex:pageBlock id="pb" title="List of Accounts">
+
+            <center>
+                <apex:outputPanel rendered="{!accountList.size != 0}" >
+                <apex:commandButton value="First" action="{!firstPage}" rendered="{!isFirst}" />
+                <apex:commandButton value="Next" action="{!nextPage}" />
+                <apex:commandButton value="Previous" action="{!previousPage}" rendered="{!isPrev}" />
+                <apex:commandButton value="Last" action="{!lastPage}" />
+                </apex:outputPanel>
+            </center>
+
+            <br />
+
+            <apex:pageMessages id="pageMsg" rendered="{!accountList.size == 0}">
+            </apex:pageMessages>
+
+            <apex:pageBlockTable value="{!accountList}" var="acc" rendered="{!accountList.size != 0}">
+                <apex:column >
+                    <apex:facet name="header">Id</apex:facet>
+                    {!acc.Id}
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Name</apex:facet>
+                    {!acc.Name}
+                </apex:column>
+                <apex:column >
+                    <apex:facet name="header">Phone</apex:facet>
+                    {!acc.Phone}
+                </apex:column>
+            </apex:pageBlockTable>
+
+            <br />
+
+            <center>
+                <apex:outputPanel rendered="{!accountList.size != 0}" >
+                <apex:commandButton value="First" action="{!firstPage}" rendered="{!isFirst}"  />
+                <apex:commandButton value="Next" action="{!nextPage}"  />
+                <apex:commandButton value="Previous" action="{!previousPage}" rendered="{!isPrev}"  />
+                <apex:commandButton value="Last" action="{!lastPage}" />
+                </apex:outputPanel>
+            </center>
+
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

@@ -1,0 +1,89 @@
+<apex:page controller="MultiObjectController" readOnly="true">
+    <apex:form >   
+        <apex:pageBlock title="Query Builder " id="pb1" >
+            <apex:pageBlockSection columns="1"> 
+                  
+                The search text 
+                <apex:inputText Label="Search" id="searchInput" value="{!searchValue}" />
+                    <apex:pageMessages id="message">
+                    </apex:pageMessages>
+                
+                Display Objects
+                <apex:pageBlockSectionItem >
+                    <apex:outputlabel value="Object:"/> 
+                            <apex:selectList value="{!selectedObject}" size="1">
+                                <apex:selectOptions value="{!ObjectNames}" />
+                                    <apex:actionSupport event="onchange"  
+                                         action="{!generateFields}"/>
+                            </apex:selectList>
+                </apex:pageBlockSectionItem>
+                 
+                Display object fields
+                <apex:pageBlockSectionItem id="disp">
+                    <apex:outputlabel value="Fields:"/> 
+                    <!--  LIST OF STRING -->  
+                    <apex:selectList value="{!moveRight}" multiselect="true" size="5" >
+                        <!-- List of select options -->    
+                        <apex:selectOptions value="{!ObjectFields}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                Add and Remove buttons
+                <apex:pageBlockSectionItem >
+                    <apex:commandButton id="addButton" value="Add" 
+                        action="{!add}" reRender="pb1" /> 
+                    <apex:commandButton id="removeButton" value="Remove" 
+                        action="{!remove}" rerender="select,disp,pb1" /> 
+                </apex:pageBlockSectionItem>
+                
+                Selected fields
+                <apex:pageBlockSectionItem id="select">
+                    <apex:outputlabel value="Selected Fields"/> 
+                    <apex:selectList value="{!moveLeft}" multiselect="true" size="5" >
+                        <apex:selectOptions value="{!displayLeft}" /> 
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                Order
+                <apex:pageBlockSectionItem >
+                    <apex:outputPanel >
+                        <apex:selectRadio value="{!orderBy}" >
+                            <apex:selectOption itemvalue="Asc" itemlabel="Ascending" /> 
+                            <apex:selectOption itemvalue="Desc" itemlabel="Descending" /> 
+                        </apex:selectRadio>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem> 
+                
+                Record Count
+                <apex:pageblocksection > 
+                    <apex:selectList size="1" multiselect="false" value="{!maxLimit}"> 
+                        <apex:selectOption itemvalue="500" itemlabel="500" /> 
+                        <apex:selectOption itemvalue="1000" itemlabel="1000" />
+                        <apex:selectOption itemvalue="1500" itemlabel="1500" /> 
+                        <apex:selectOption itemvalue="2000" itemlabel="2000" /> 
+                    </apex:selectList>
+                </apex:pageblocksection> 
+                 
+                Execute Query
+                <apex:pageBlockSectionItem >
+                    <apex:outputPanel >
+                    <apex:commandButton id="exeBtn" value="Execute" 
+                        action="{!executeQuery}" reRender="query,recordsBlock" rendered="{!queryBlock}" /> 
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                Query 
+                <apex:outputPanel id="query" >
+                    <apex:outputText > {!queryString} </apex:outputText>
+                </apex:outputPanel>
+                
+                Results
+                <apex:pageBlockTable value="{!records}" id="recordsBlock" var="rec">
+                     <apex:repeat value="{!disp}" var="display"> 
+                        <apex:column value="{!rec[display]}" />
+                     </apex:repeat> 
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

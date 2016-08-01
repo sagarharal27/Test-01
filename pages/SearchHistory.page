@@ -1,0 +1,55 @@
+<!-- This page will display all the queries -->
+<apex:page controller="SearchHistoryController" tabStyle="Account">
+    <apex:form >
+        
+<!--  Page Block 1  -->
+        <apex:pageBlock id="pgBlock1" title="Gooble Force History">
+            <br />
+            
+<!--  Action Status  -->
+            <apex:actionStatus id="status" >
+                <apex:facet name="start" >
+                    <img src="/img/loading.gif" />   
+                </apex:facet>
+            </apex:actionStatus> 
+                
+            <apex:pageBlockSection columns="1">
+            
+<!--  Page block table 1 for history -->
+                <apex:PageBlockTable id="pgBlkTable1" value="{!QueryList}" var="q" >
+                    <apex:column >
+                        
+<!-- History link and pass the value to the class  -->
+                        <apex:commandLink value="{!q.Name}" action="{!responses}" 
+                            rerender="pgBlock2" >
+                            <apex:param name="response" value="{!q.Id}" /> 
+                        </apex:commandLink>
+                    </apex:column>
+                </apex:PageBlockTable>
+            </apex:pageBlockSection>
+<!--  Navigation buttons  -->
+            <center>
+                <apex:commandButton value="Previous" action="{!previous}" >
+                    <apex:actionsupport event="onclick" status="status" 
+                        reRender="pgBlkTable1" /> 
+                </apex:commandButton>
+                <apex:commandButton value="Next" action="{!next}" > 
+                    <apex:actionsupport event="onclick" status="status" 
+                        reRender="pgBlkTable1" />
+                </apex:commandButton>
+            </center>
+        </apex:pageBlock>
+        
+<!--  Page block 2  for responses -->
+        <apex:pageBlock title="Response Of the Query" id="pgBlock2">
+            
+<!--  Page block table 2 for responses -->
+            <apex:PageBlockTable id="pgBlkTable2" title="Results" value="{!responseList}" var="r">
+                <apex:column value="{!r.Title__c}" />
+                <apex:column value="{!r.Link__c}" />
+                <apex:column value="{!r.Description__c}" />
+                <br />
+            </apex:PageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

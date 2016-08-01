@@ -1,0 +1,12 @@
+<apex:page controller="TrialController">
+<apex:form >
+
+                    <apex:inputCheckbox id="box" value="{!con}" >
+<!--                         <apex:actionsupport event="onclick" action="{!buttonVisible}"  -->
+<!--                             reRender="blockpage"/> -->
+                    </apex:inputCheckbox>
+                    
+ <apex:commandButton value="Delete Multiple Contacts" 
+                        action="{!tryial}"/> 
+</apex:form>
+</apex:page>

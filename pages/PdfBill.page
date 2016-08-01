@@ -1,0 +1,80 @@
+<apex:page standardController="Invoice_Statement__c"
+    standardStylesheets="false" renderAs="pdf" sidebar="false"
+    showHeader="false" applyHtmlTag="false" applyBodyTag="false">
+    <html>
+        <head>
+            <apex:styleSheet value="{!URLFOR($Resource.PdfCSS,'cssPdf.css')}" />
+        </head>
+        <body>
+            <div class="Heading">
+                <h1> <apex:outputText value="INVOICE" /> </h1>
+            </div>
+            <div>
+                <table class="invoice" id="in">
+                    <tr>
+                        <th>INVOICE #</th>
+                        <th>DATE</th>
+                    </tr>
+                    <tr>
+                        <td>{!IF((Invoice_Statement__c.Name == ''), " ", Invoice_Statement__c.Name)}</td>
+                        <td class="datelist">
+                            <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                <apex:param value="{!Invoice_Statement__c.CreatedDate}" />
+                            </apex:outputText>
+                        </td>
+                    </tr>
+                </table >
+                <h2>ABC Containers</h2>
+                    Craig Lobo,<br />
+                    Karve Road,<br/>
+                    Pune 411004.<br/>
+                    9049980902<br/>
+                    <br /><br />
+                <table class="billto">
+                    <th>Bill To</th>
+                </table>
+                {!IF((Invoice_Statement__c.Customer_Name__c == ''), " ", 
+                    Invoice_Statement__c.Customer_Name__c)}
+                <br/>
+                {!IF((Invoice_Statement__c.Company__c == ''), " ", 
+                    Invoice_Statement__c.Company__c)}
+                <br/>
+                {!IF((Invoice_Statement__c.Address__c == ''), " ", 
+                    Invoice_Statement__c.Address__c)}
+                <br/>
+                {!IF((Invoice_Statement__c.City__c == ''), " ", 
+                    Invoice_Statement__c.City__c)}
+                <br/>
+                {!IF(ISNULL(Invoice_Statement__c.Zip_Code__c), " ", 
+                    Invoice_Statement__c.Zip_Code__c)}
+                <br/>
+                {!IF(ISNULL(Invoice_Statement__c.Phone__c), " ", 
+                    Invoice_Statement__c.Phone__c)}
+                <br/>
+                <br />
+                <br />
+                <table class="desc" >
+                    <th colspan="2">Description</th>
+                    <th>Amount</th>
+                    <apex:repeat value="{!Invoice_Statement__c.Line_Items__r}" var="items">
+                        <tr>
+                            <td class="left" colspan="2">{!items.Merchandise_Name__r.Name}</td>
+                            <td class="right">$ {!items.Total__c}</td>
+                        </tr>
+                    </apex:repeat>
+                    <tr>
+                        <td>Thank you for your Business</td>
+                        <td>Total</td>
+                        <td>${!Invoice_Statement__c.Final_total__c}</td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+                <div class="contact"> 
+                    {!$Label.PdfFooter}
+                    <br/> 
+                </div>
+            </div>
+        </body>
+    </html>
+</apex:page>

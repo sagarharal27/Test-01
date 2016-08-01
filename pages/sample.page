@@ -1,0 +1,17 @@
+<apex:page controller="sample" tabStyle="Account">
+	<apex:form >
+	<apex:pageBlock >
+		<apex:pageBlockTable value="{!Queries}" var="queryObj">
+			<apex:column >
+				<apex:commandLink action="{!showDetails}" value="{!queryObj.Name}">
+					<apex:param name="searchString" value="{!queryObj.Name}" />
+				</apex:commandLink>
+			</apex:column>
+		</apex:pageBlockTable>
+		<apex:commandButton value="first" action="{!setCon.first}" />
+		<apex:commandButton value="Previous" action="{!setCon.previous}" />
+		<apex:commandButton value="next" action="{!setCon.next}" />
+		<apex:commandButton value="last" action="{!setCon.last}" />
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>
